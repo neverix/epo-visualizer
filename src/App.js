@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import FileUpload from './components/FileUpload';
+import Sidebar from './components/Sidebar';
+import Visualization from './components/Visualization';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [filesData, setFilesData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFilesUpload = (data) => {
+    setFilesData(data);
+    setSelectedFile(data[0]); // Default to first file
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <FileUpload onFilesUpload={handleFilesUpload} />
+      <div className="content">
+        <Sidebar filesData={filesData} setSelectedFile={setSelectedFile} />
+        {selectedFile && <Visualization fileData={selectedFile} />}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
