@@ -5,9 +5,16 @@ const Visualization = ({ fileData }) => {
   const { Examples } = fileData;
   const [baseColor, setBaseColor] = React.useState('#4CAF50');
 
-  const generateColorShade = (index) => {
-    const hueShift = (index * 137.5) % 360; // Spread colors around the color wheel
-    return `hsl(${hueShift}, 70%, 60%)`;
+  const generateColorShade = (exampleIndex, index) => {
+    let maxAct = Examples.reduce((max, example) => {
+      let acts = example.Activations_per_token;
+      acts = acts.splice(1, acts.length - 2);
+      const max_act = Math.max(...acts);
+      return Math.max(max, max_act);
+    }, 0);
+    const act = Examples[exampleIndex].Activations_per_token[index] / maxAct;
+    const alpha = index < 1 ? 0 : Math.round(Math.min(100, act * 100));
+    return `hsl(50, 100%, 50%, ${alpha}%)`;
   };
 
   const npURL = `https://www.neuronpedia.org/gemma-2b-it/${fileData.SAE_metadata.Layer}-res-jb/${fileData.SAE_metadata.Feature_ID}`;
@@ -27,22 +34,22 @@ const Visualization = ({ fileData }) => {
 
       {Examples.map((example, exampleIndex) => (
         <div key={exampleIndex} className="example">
+          {JSON.stringify(example)}
           <p>
             <strong>Cross-Entropy:</strong> {example.Cross_entropy_score} |{' '}
             <strong>EPO Metric:</strong> {example.EPO_metric_score}
           </p>
           <div className="tokens">
-            {example.Tokens.map((token, tokenIndex) => (
+            {example.Tokens.map((token: string, tokenIndex) => (<>
               <span
-                key={tokenIndex}
                 style={{
-                  color: generateColorShade(tokenIndex),
-                  marginRight: '5px',
+                  backgroundColor: generateColorShade(exampleIndex, tokenIndex),
+                  // marginRight: '5px',
                 }}
               >
-                {token}
+                {token.replaceAll(' ', '_')}
               </span>
-            ))}
+            </>))}
           </div>
         </div>
       ))}
