@@ -1,10 +1,10 @@
 import React, { useMemo, useEffect, useState } from "react";
-import FileUpload from "./components/FileUpload";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar.jsx";
 import Visualization from "./components/Visualization.tsx";
 import "./App.css";
 
-const epoFiles = require("./epoFiles.json");
+// const epoFiles = require("./epoFiles.json");
+import epoFiles from "./epoFiles.json";
 
 const App = () => {
   const [filesData, setFilesData] = useState([]);
@@ -14,7 +14,7 @@ const App = () => {
       const files = (
         await Promise.all(
           epoFiles.map(async (file) => {
-            const response = await fetch(`./epo/${file}`);
+            const response = await fetch(`epo/${file}`);
             const text = await response.text();
             return JSON.parse(text);
           })
