@@ -41,9 +41,9 @@ const Visualization = ({ fileData }) => {
       </CardHeader>
 
       <iframe
-        src={`${npURL}?embed=true&embedexplanation=true&embedplots=true&embedtest=true&height=300`}
+        src={`${npURL}?embed=true&embedexplanation=true&embedplots=true&embedtest=true&height=500`}
         title="Neuronpedia"
-        className="w-full h-[300px] border-none bg-gray-50"
+        className="w-full h-[500px] border-none bg-gray-50"
       />
 
       <CardContent className="p-6">

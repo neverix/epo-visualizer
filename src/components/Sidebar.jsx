@@ -10,6 +10,13 @@ const features = {
   12017: "antonym prediction",
   5324: "name completion",
   8361: "gender name completion",
+  4597: "refusal to provide info",
+  10681: "prohibition",
+  11046: "official confirmation",
+  11256: "denial of offensive action",
+  12701: "explicit material warning",
+  15553: "offensive gift"
+
 };
 
 const Sidebar = ({ filesData, setSelectedFile }) => {
