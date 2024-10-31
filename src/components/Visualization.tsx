@@ -8,7 +8,7 @@ const Visualization = ({ fileData }) => {
   const generateColorShade = (exampleIndex, index) => {
     let maxAct = Examples.reduce((max, example) => {
       let acts = example.Activations_per_token;
-      acts = acts.splice(1, acts.length - 2);
+      acts = [...acts].splice(3);
       const max_act = Math.max(...acts);
       return Math.max(max, max_act);
     }, 0);
@@ -32,15 +32,15 @@ const Visualization = ({ fileData }) => {
     title="Neuronpedia"
     style={{height: "300px", width: "540px"}}></iframe>
 
-      {Examples.map((example, exampleIndex) => (
+      {[...Examples].reverse().map((example, exampleIndex) => (
         <div key={exampleIndex} className="example">
-          {JSON.stringify(example)}
+          {/* {JSON.stringify(example)} */}
           <p>
             <strong>Cross-Entropy:</strong> {example.Cross_entropy_score} |{' '}
             <strong>EPO Metric:</strong> {example.EPO_metric_score}
           </p>
           <div className="tokens">
-            {example.Tokens.map((token: string, tokenIndex) => (<>
+            {example.Tokens.map((token: string, tokenIndex) => (tokenIndex < 3 ? null : <>
               <span
                 style={{
                   backgroundColor: generateColorShade(exampleIndex, tokenIndex),
