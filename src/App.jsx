@@ -3,7 +3,6 @@ import Sidebar from "./components/Sidebar.jsx";
 import Visualization from "./components/Visualization.tsx";
 import "./App.css";
 
-// const epoFiles = require("./epoFiles.json");
 import epoFiles from "./epoFiles.json";
 
 const App = () => {
