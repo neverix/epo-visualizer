@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/epo-visualizer/static/css/main.de22e602.css",
+    "main.js": "/epo-visualizer/static/js/main.40ce5a25.js",
+    "static/js/453.bfc8b001.chunk.js": "/epo-visualizer/static/js/453.bfc8b001.chunk.js",
+    "index.html": "/epo-visualizer/index.html",
+    "main.de22e602.css.map": "/epo-visualizer/static/css/main.de22e602.css.map",
+    "main.40ce5a25.js.map": "/epo-visualizer/static/js/main.40ce5a25.js.map",
+    "453.bfc8b001.chunk.js.map": "/epo-visualizer/static/js/453.bfc8b001.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de22e602.css",
+    "static/js/main.40ce5a25.js"
+  ]
+}
