@@ -15,7 +15,7 @@ const Visualization = ({ fileData }) => {
       return Math.max(max, max_act);
     }, 0);
     const act = Examples[exampleIndex].Activations_per_token[index] / maxAct;
-    const alpha = index < 1 ? 0 : Math.min(100, act * 100);
+    const alpha = index < 3 ? 0 : Math.min(100, act * 100);
     return `hsl(50, 100%, 50%, ${alpha}%)`;
   };
 
@@ -48,7 +48,7 @@ const Visualization = ({ fileData }) => {
 
       <CardContent className="p-6">
         <div className="space-y-6">
-          {[...Examples].reverse().map((example, exampleIndex) => (
+          {Examples.map((example, exampleIndex) => (
             <div key={exampleIndex} className="p-4 bg-gray-50 rounded-lg">
               <div className="flex gap-4 mb-3">
                 <Badge variant="outline" className="bg-white">
@@ -75,7 +75,7 @@ const Visualization = ({ fileData }) => {
                 ))}
               </div>
             </div>
-          ))}
+          )).reverse()}
         </div>
       </CardContent>
     </Card>

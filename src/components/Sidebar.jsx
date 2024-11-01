@@ -30,34 +30,52 @@ const Sidebar = ({ filesData, setSelectedFile }) => {
     return acc;
   }, {});
 
+  // Separate known and unknown features
+  const sortedEntries = Object.entries(groupedFiles).sort(([idA, _], [idB, __]) => {
+    const isUnknownA = !features[idA];
+    const isUnknownB = !features[idB];
+    if (isUnknownA === isUnknownB) return 0;
+    return isUnknownA ? 1 : -1;
+  });
+
   return (
     <div className="w-64 p-4 border-r border-gray-200">
       <h3 className="text-lg font-semibold mb-4">Files</h3>
       <ul className="space-y-2">
-        {Object.entries(groupedFiles).map(([featureId, files]) => (
+        {sortedEntries.map(([featureId, files]) => (
           <li key={featureId} className="mb-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-medium">
+            {files.length === 1 ? (
+              <button
+                onClick={() => setSelectedFile(files[0])}
+                className="text-left hover:text-blue-600 transition-colors font-medium"
+              >
                 {featureId}: {features[featureId] || "Unknown feature"}
-              </span>
-            </div>
-            <div className="flex gap-2 ml-4">
-              {files.map((file, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedFile(file)}
-                  className="px-3 py-1 text-sm bg-blue-100 hover:bg-blue-200 rounded-md transition-colors"
-                >
-                  {index + 1}
-                </button>
-              ))}
-            </div>
+              </button>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-medium">
+                    {featureId}: {features[featureId] || "Unknown feature"}
+                  </span>
+                </div>
+                <div className="flex gap-2 ml-4">
+                  {files.map((file, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedFile(file)}
+                      className="px-3 py-1 text-sm bg-blue-100 hover:bg-blue-200 rounded-md transition-colors"
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>
       {filesData.length > 0 && (
         <div className="mt-6 border-t border-gray-200 pt-4">
-          <h4 className="text-md font-semibold mb-2">Metadata</h4>
           <ul className="space-y-1">
             {Object.entries(filesData[0].SAE_metadata).map(([key, value]) => (
               <li key={key} className="text-sm">
