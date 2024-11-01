@@ -1,7 +1,9 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ExternalLink, ArrowUpDown } from 'lucide-react';
 
 const Visualization = ({ fileData }) => {
   const { Examples } = fileData;
@@ -19,13 +21,30 @@ const Visualization = ({ fileData }) => {
     return `hsl(50, 100%, 50%, ${alpha}%)`;
   };
 
+  const [sortAscending, setSortAscending] = useState(false);
+
+  const toggleSort = () => {
+    setSortAscending(!sortAscending);
+  };
+
   const npURL = `https://www.neuronpedia.org/gemma-2b-it/${fileData.SAE_metadata.Layer}-res-jb/${fileData.SAE_metadata.Feature_ID}`;
 
   return (
     <Card className="w-full max-w-4xl bg-white shadow-lg">
       <CardHeader className="border-b border-gray-100">
         <CardTitle className="flex items-center justify-between">
-          <span className="text-xl font-semibold">Token Visualization</span>
+          <div className="flex items-center gap-4">
+            <span className="text-xl font-semibold">Token Visualization: Layer {fileData.SAE_metadata.Layer} feature {fileData.SAE_metadata.Feature_ID}</span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleSort}
+              className="flex items-center gap-2"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+              {sortAscending ? 'Show highest activations' : 'Show lowest perplexities'}
+            </Button>
+          </div>
           <a 
             href={npURL}
             target="_blank"
@@ -35,7 +54,7 @@ const Visualization = ({ fileData }) => {
             <span className="text-sm">
               {fileData.SAE_metadata.Layer} {fileData.SAE_metadata.SAE_type} {fileData.SAE_metadata.Feature_ID}
             </span>
-            <ExternalLink size={16} />
+            <ExternalLink className="h-4 w-4" />
           </a>
         </CardTitle>
       </CardHeader>
@@ -75,7 +94,7 @@ const Visualization = ({ fileData }) => {
                 ))}
               </div>
             </div>
-          )).reverse()}
+          )).sort((a, b) => sortAscending ? 1 : -1)}
         </div>
       </CardContent>
     </Card>
