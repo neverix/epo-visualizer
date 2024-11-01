@@ -30,7 +30,7 @@ const Visualization = ({ fileData }) => {
   const npURL = `https://www.neuronpedia.org/gemma-2b-it/${fileData.SAE_metadata.Layer}-res-jb/${fileData.SAE_metadata.Feature_ID}`;
 
   return (
-    <Card className="w-full max-w-4xl bg-white shadow-lg">
+    <Card className="w-full max-w-4xl ml-64 bg-white shadow-lg">
       <CardHeader className="border-b border-gray-100">
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-4">

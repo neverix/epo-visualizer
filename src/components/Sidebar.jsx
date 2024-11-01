@@ -39,7 +39,8 @@ const Sidebar = ({ filesData, setSelectedFile }) => {
   });
 
   return (
-    <div className="w-64 p-4 border-r border-gray-200">
+    // <div className="w-64 p-4 border-r border-gray-200">
+    <aside className="w-64 h-screen flex-shrink-0 p-4 border-r border-gray-200 overflow-y-auto fixed">
       <h3 className="text-lg font-semibold mb-4">Files</h3>
       <ul className="space-y-2">
         {sortedEntries.map(([featureId, files]) => (
@@ -86,7 +87,8 @@ const Sidebar = ({ filesData, setSelectedFile }) => {
           </ul>
         </div>
       )}
-    </div>
+    {/* </div> */}
+    </aside>
   );
 };
 
